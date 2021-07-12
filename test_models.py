@@ -93,7 +93,7 @@ def test_model_on_image_pair(args, query_image, reference_image):
             axis[2].imshow(warped_query_image)
             axis[2].set_title(
                 'Warped query image according to estimated flow by {}_{}'.format(args.model, args.pre_trained_model))
-        cv2.imwrite(os.path.join(args.write_dir, 'output_warped_query_image_{}_{}.png'.format(args.model, args.pre_trained_model)), warped_query_image)  # save wrapped image
+        cv2.imwrite(os.path.join(args.write_dir, 'output_warped_query_image_{}_{}.png'.format(args.model, args.pre_trained_model)), warped_query_image[:,:,::-1])  # save wrapped image
         
         axis[0].imshow(query_image)
         axis[0].set_title('Query image')
