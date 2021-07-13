@@ -84,9 +84,9 @@ def test_model_on_image_pair(args, query_image, reference_image):
             fig, axis = plt.subplots(1, 5, figsize=(30, 30))
 
             confident_mask = (confidence_map > 0.50).astype(np.uint8)
-            confident_warped = overlay_semantic_mask(warped_query_image, ann=255 - confident_mask*255, color=color)
+            confident_warped = overlay_semantic_mask(warped_reference_image, ann=255 - confident_mask*255, color=color)
             axis[2].imshow(confident_warped)
-            axis[2].set_title('Confident warped query image according to \n estimated flow by {}_{}'
+            axis[2].set_title('Confident warped reference image according to \n estimated flow by {}_{}'
                               .format(args.model, args.pre_trained_model))
             axis[4].imshow(confidence_map, vmin=0.0, vmax=1.0)
             axis[4].set_title('Confident regions')
