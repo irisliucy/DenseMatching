@@ -62,10 +62,13 @@ def test_model_on_image_pair(args, query_image, reference_image):
             confidence_map = uncertainty_components['p_r'].squeeze().detach().cpu().numpy()
         else:
             if args.flipping_condition and 'GLUNet' in args.model:
-                estimated_flow = network.estimate_flow_with_flipping_condition(query_image_, reference_image_,
+                # estimated_flow = network.estimate_flow_with_flipping_condition(query_image_, reference_image_,
+                #                                                                mode='channel_first')
+                estimated_flow = network.estimate_flow_with_flipping_condition(reference_image_, query_image_,
                                                                                mode='channel_first')
             else:
-                estimated_flow = network.estimate_flow(query_image_, reference_image_, mode='channel_first')
+                # estimated_flow = network.estimate_flow(query_image_, reference_image_, mode='channel_first')
+                estimated_flow = network.estimate_flow(reference_image_, query_image_, mode='channel_first')
         estimated_flow_numpy = estimated_flow.squeeze().permute(1, 2, 0).cpu().numpy()
         warped_query_image = remap_using_flow_fields(query_image, estimated_flow.squeeze()[0].cpu().numpy(),
                                                      estimated_flow.squeeze()[1].cpu().numpy()).astype(np.uint8)
